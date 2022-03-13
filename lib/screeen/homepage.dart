@@ -17,35 +17,6 @@ class _HomePageState extends State<HomePage> {
   bool isScrollingDown = false;
   bool _showAppbar = true;
 
-  var name = [
-    "Bitcoin",
-    "Ethereum",
-    "Ripple",
-    "Bitcoin",
-    "Ethereum",
-    "Ripple",
-    "Bitcoin",
-    "Ethereum",
-    "Ripple",
-    "Bitcoin",
-    "Ethereum",
-    "Ripple"
-  ];
-  var amount = [
-    "3231",
-    "23213",
-    "3221",
-    "3231",
-    "23213",
-    "3221",
-    "3231",
-    "23213",
-    "3221",
-    "3231",
-    "23213",
-    "3221"
-  ];
-
   var item = [
     'USD',
     'EUR',
@@ -105,6 +76,8 @@ class _HomePageState extends State<HomePage> {
                         itemCount: snapshot.data.length,
                         scrollDirection: Axis.vertical,
                         itemBuilder: (context, index) {
+                          print(snapshot.data[index].name);
+                          print(snapshot.data[index].rate);
                           return ListTile(
                             leading: Container(
                               decoration: BoxDecoration(
