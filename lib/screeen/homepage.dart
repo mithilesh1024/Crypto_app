@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                 decoration: BoxDecoration(
                   color: MyApp.themeNotifier.value == ThemeMode.light?Colors.grey[200]:Colors.black   //change the color according to theme mode
                 ),
-                width: MediaQuery.of(context).size.width, 
+                width: MediaQuery.of(context).size.width,
                 child: Center(
                   child: DropdownButton(
                     isExpanded: true,

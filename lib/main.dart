@@ -19,11 +19,11 @@ class MyApp extends StatelessWidget {
           title: 'Crypto App',
           debugShowCheckedModeBanner: false,
           darkTheme: ThemeData.dark(),
-          themeMode: currentMode,
+          themeMode: currentMode,   
           home: HomePage(),
-          routes: {
-            "/home": (_) => HomePage(),
-            "/setting": (_) => SettingsPage()
+          routes: {     // name the route to each page
+            "/home": (_) => HomePage(),   //home page route
+            "/setting": (_) => SettingsPage()   //setting page route
           },
         );
       },
