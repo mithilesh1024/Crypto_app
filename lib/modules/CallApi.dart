@@ -2,6 +2,7 @@ import "Package:http/http.dart" as http;
 import 'dart:convert';
 import 'data.dart';
 
+// dummy data structure
 class Data1{
   String name;
   double rate;
@@ -13,6 +14,7 @@ class Data1{
 }
 
 Future<dynamic> getData() async {
+  // the api calls i tired but not working
   // String API_KEY = "159B05B9-C576-4BC3-A21B-9351383BDE5A";
   // String url = "https://rest.coinapi.io/v1/exchanges";
   // Map<String, String> header = {

@@ -7,12 +7,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
+  // themeNotifier is used to check is dark mode is activated or deactivated. Initial value of dark mode is deactivated.
   static final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.light);
-  // const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<ThemeMode>(
+    return ValueListenableBuilder<ThemeMode>(   // This will listen to any change in themeNotifier
       valueListenable: themeNotifier,
       builder: (context, ThemeMode currentMode,_) {
         return MaterialApp(

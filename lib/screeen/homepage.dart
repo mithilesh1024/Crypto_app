@@ -1,6 +1,4 @@
 import 'package:crypto_app/modules/CallApi.dart';
-import 'package:crypto_app/modules/Tile_Icon.dart';
-import 'package:crypto_app/modules/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -13,26 +11,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  ScrollController _scrollController;
-  bool isScrollingDown = false;
-  bool _showAppbar = true;
+  bool isScrollingDown = false;   //to check if user is scrolling
 
-  var item = [
+  var item = [    // items to be displayed on dropdownmenu
     'USD',
     'EUR',
     'BTC',
     'GBP',
   ];
-  String dropdownvalue = 'USD';
+  String dropdownvalue = 'USD';   // initial dropdownmenu item
 
-  int i = 0;
-  List<Color> colors = [Colors.cyan, Colors.blueAccent, Colors.deepOrange];
+  int i = 0;  // used to rotate about colors in colors list
+  List<Color> colors = [Colors.cyan, Colors.blueAccent, Colors.deepOrange];   // icon color list
 
+  // rotate through the list and return the next color
   Color getColor() {
     i = (i + 1) % colors.length;
     return colors[i];
   }
 
+  // get the first letter of the name to be displayed on circle
   String nameFirstLetter(String name) {
     String s = name.substring(0, 1).toUpperCase();
     return s;
@@ -47,7 +45,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NestedScrollView(
+      body: NestedScrollView(     //it is used to hide scrollbar when user starts to scroll
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
             floating: true,
@@ -58,7 +56,7 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                 icon: Icon(Icons.settings),
                 onPressed: () {
-                  Navigator.of(context).pushNamed("/setting");
+                  Navigator.of(context).pushNamed("/setting");    // used to navigate to settings page
                 },
               ),
             ],
@@ -68,75 +66,74 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             Container(
               height: MediaQuery.of(context).size.height - 45,
-              child: FutureBuilder(
-                  future: getData(),
+              child: FutureBuilder(     // it will wait for the data to be ready
+                  future: getData(),    // it will get data from api
                   builder: (context, snapshot){
-                    if(snapshot.data != null){
+                    if(snapshot.data != null){    //check if there is data
                       return ListView.builder(
                         itemCount: snapshot.data.length,
                         scrollDirection: Axis.vertical,
                         itemBuilder: (context, index) {
-                          print(snapshot.data[index].name);
-                          print(snapshot.data[index].rate);
                           return ListTile(
                             leading: Container(
                               decoration: BoxDecoration(
                                   color: getColor(),
-                                  borderRadius: BorderRadius.circular(55.0)),
+                                  borderRadius: BorderRadius.circular(55.0)   //to get circle
+                              ),
                               height: 45.0,
                               width: 45.0,
                               child: Center(
                                 child: Text(
-                                  nameFirstLetter(snapshot.data[index].name),
+                                  nameFirstLetter(snapshot.data[index].name),   //function call to get first letter
                                   style: TextStyle(
                                     fontSize: 17,
-                                    color: Colors.white,
+                                    color: Colors.white,    //color is letter
                                   ),
                                 ),
                               ),
                             ),
                             title: Text(
-                              snapshot.data[index].name,
+                              snapshot.data[index].name,    //name of crypto
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            subtitle: Text("\$${snapshot.data[index].rate}"),
+                            subtitle: Text("\$${snapshot.data[index].rate}"),   //rate of crypto
                           );
                         },
                       );
                     }else{
-                      return Center(
-                        child: CircularProgressIndicator(),
+                      return Center(    //it will center the below widget
+                        child: CircularProgressIndicator(),   // CircularProgressIndicator will be displayed till the data is not received
                       );
                     }
                   }
               ),
             ),
-            Positioned(
+            Positioned(   // bottom menu
               bottom: 0,
               child: Container(
                 decoration: BoxDecoration(
-                  color: MyApp.themeNotifier.value == ThemeMode.light?Colors.grey[200]:Colors.black
+                  color: MyApp.themeNotifier.value == ThemeMode.light?Colors.grey[200]:Colors.black   //change the color according to theme mode
                 ),
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width, 
                 child: Center(
                   child: DropdownButton(
                     isExpanded: true,
                     value: dropdownvalue,
                     icon: Icon(Icons.keyboard_arrow_down),
-                    items: item.map((String items){
+                    items: item.map((String items){   //display the values from list
                       return DropdownMenuItem(
                         value: items,
                         child: Center(child: Text(items,
                         style: TextStyle(
-                          color: MyApp.themeNotifier.value == ThemeMode.light?Colors.black:Colors.white
+                          color: MyApp.themeNotifier.value == ThemeMode.light?Colors.black:Colors.white   //change the color according to theme mode
                         ),)),
                       );
                   }).toList(),
                     onChanged: (String newValue){
                       setState(() {
-                        dropdownvalue=newValue;
+                        dropdownvalue=newValue;   //change the DropdownMenu value
                       });
                     },
                   ),

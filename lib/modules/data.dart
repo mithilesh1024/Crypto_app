@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+//json serialisation and deserialization
+
 List<Data> DataFromJson(String str) =>
     List<Data>.from(json.decode(str).map((x) => Data.fromJson(x)));
 
